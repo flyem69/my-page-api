@@ -6,12 +6,12 @@ import my.page.api.authentication.dao.UserRepository;
 import my.page.api.authentication.enumeration.UserDataValidationResult;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import static my.page.api.authentication.enumeration.UserDataValidationResult.*;
 import static my.page.api.authentication.enumeration.UserDataValidationResult.OK;
 
-@Component
+@Service
 public class UserDataValidator {
 
     @Autowired

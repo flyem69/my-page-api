@@ -14,7 +14,7 @@ import static my.page.api.authentication.enumeration.UserDataValidationResult.OK
 import static my.page.api.authentication.enumeration.UserDataValidationResult.WRONG_CREDENTIALS;
 
 @AuthenticationMapping
-public class Login {
+public class LoginEndpoint {
 
     @Autowired
     UserDataValidator userDataValidator;

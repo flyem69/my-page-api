@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import static my.page.api.authentication.enumeration.UserDataValidationResult.OK;
 
 @AuthenticationMapping
-public class Registration {
+public class RegistrationEndpoint {
 
     @Autowired
     UserDataValidator userDataValidator;
