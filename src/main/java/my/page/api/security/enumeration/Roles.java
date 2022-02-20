@@ -1,4 +1,4 @@
-package my.page.api.security;
+package my.page.api.security.enumeration;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

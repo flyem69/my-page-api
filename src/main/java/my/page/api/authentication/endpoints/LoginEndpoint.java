@@ -33,6 +33,7 @@ public class LoginEndpoint {
             return ResponseEntity.status(401)
                                  .body(WRONG_CREDENTIALS.toString());
         }
+
         String token = "jwt hehe";
         return ResponseEntity.ok(token);
     }
