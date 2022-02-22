@@ -1,9 +1,7 @@
-package my.page.api.security;
+package my.page.api.security.filters;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.*;
+import lombok.AllArgsConstructor;
+import my.page.api.security.services.JWTService;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.*;
@@ -11,16 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@AllArgsConstructor
 public class AuthorizationFilter implements Filter {
 
-    private static final JWTVerifier jwtVerifier;
-
-    static {
-        Algorithm jwtAlgorithm = Algorithm.HMAC256("qwerty");
-        jwtVerifier = JWT.require(jwtAlgorithm)
-                         .withIssuer("my-page")
-                         .build();
-    }
+    private final JWTService jwtService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -49,19 +41,10 @@ public class AuthorizationFilter implements Filter {
 
     private boolean verifyHeader(@NotNull String authorizationHeader) {
         if (authorizationHeader.startsWith("Bearer ")) {
-            return verifyToken(authorizationHeader.substring(7));
+            return jwtService.verifyToken(authorizationHeader.substring(7));
         } else {
             return verifyApiKey(authorizationHeader);
         }
-    }
-
-    private boolean verifyToken(@NotNull String token) {
-        try {
-            jwtVerifier.verify(token);
-        } catch (JWTVerificationException exception) {
-            return false;
-        }
-        return true;
     }
 
     private boolean verifyApiKey(@NotNull String apiKey) {
