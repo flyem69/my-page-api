@@ -3,6 +3,7 @@ package my.page.api.streams.models;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Streams {
     private final Set<String> sockets;
 
     public Streams() {
-        sockets = new HashSet<>();
+        sockets = Collections.synchronizedSet(new HashSet<>());
     }
 
     public boolean addSocket(String streamSocket) {

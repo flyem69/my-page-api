@@ -35,7 +35,7 @@ public class AuthenticationFacade {
         }
         User user = userService.findUserByLoginUserData(loginUserData);
         if (user == null) {
-            return ResponseEntity.status(401)
+            return ResponseEntity.status(400)
                                  .body(WRONG_CREDENTIALS.toString());
         }
         String token = jwtService.generateToken(user.getId()
@@ -53,5 +53,15 @@ public class AuthenticationFacade {
         String token = jwtService.generateToken(user.getId()
                                                     .toString());
         return ResponseEntity.ok(token);
+    }
+
+    public @NotNull ResponseEntity<String> verification(@NotNull String token) {
+        if (jwtService.verifyToken(token)) {
+            return ResponseEntity.ok()
+                                 .build();
+        } else {
+            return ResponseEntity.status(401)
+                                 .build();
+        }
     }
 }
