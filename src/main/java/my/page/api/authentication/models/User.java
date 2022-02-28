@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
+import java.util.UUID;
+
 import static my.page.api.database.Schemas.AUTHENTICATION;
 
 @Entity
@@ -19,11 +21,14 @@ public class User {
     @Id
     @GeneratedValue
     @Setter
-    private Long id;
+    private UUID id;
     @Setter
+    @Column(nullable = false, unique = true)
     private String email;
     @Setter
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false)
     private String password;
 
     public void setPassword(String password) {
