@@ -1,7 +1,6 @@
 package my.page.api.authentication.services;
 
 import my.page.api.authentication.dao.UserRepository;
-import my.page.api.authentication.models.LoginUserData;
 import my.page.api.authentication.models.User;
 import my.page.api.authentication.models.UserData;
 import org.jetbrains.annotations.NotNull;
@@ -10,26 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserService {
 
     @Autowired
     UserRepository userRepository;
 
-    public @Nullable User findUserByLoginUserData(@NotNull LoginUserData loginUserData) {
-        List<User> users = userRepository.findByEmailOrName(loginUserData.getEmailOrName(),
-                                                            loginUserData.getEmailOrName());
-        for (User user : users) {
-            if (isPasswordMatch(loginUserData.getPassword(), user.getPassword())) {
-                return user;
-            }
+    public @Nullable User findUserByUserData(@NotNull UserData userData) {
+        User user = userRepository.findByEmailOrName(userData.getEmail(), userData.getName());
+        if (user != null && isPasswordMatch(userData.getPassword(), user.getPassword())) {
+            return user;
         }
         return null;
     }
 
     public @NotNull User createNewUser(@NotNull UserData userData) {
+        //TODO throw custom exception if invalid data
         User user = new User();
         user.setEmail(userData.getEmail());
         user.setName(userData.getName());

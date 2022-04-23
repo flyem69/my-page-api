@@ -1,4 +1,4 @@
-package my.page.api.authentication.endpoints;
+package my.page.api.authentication.api;
 
 import my.page.api.authentication.AuthenticationFacade;
 import my.page.api.authentication.models.UserData;

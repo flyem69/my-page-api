@@ -1,7 +1,7 @@
-package my.page.api.authentication.endpoints;
+package my.page.api.authentication.api;
 
 import my.page.api.authentication.AuthenticationFacade;
-import my.page.api.authentication.models.LoginUserData;
+import my.page.api.authentication.models.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +14,7 @@ public class LoginEndpoint {
     AuthenticationFacade authenticationFacade;
 
     @GetMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginUserData loginUserData) {
-        return authenticationFacade.login(loginUserData);
+    public ResponseEntity<String> login(@RequestBody UserData userData) {
+        return authenticationFacade.login(userData);
     }
 }

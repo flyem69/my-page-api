@@ -1,39 +1,36 @@
 package my.page.api.authentication;
 
-import my.page.api.authentication.enumeration.UserDataValidationResult;
-import my.page.api.authentication.models.LoginUserData;
+import lombok.AllArgsConstructor;
+import my.page.api.authentication.enumeration.validation.UserDataValidationResult;
 import my.page.api.authentication.models.User;
 import my.page.api.authentication.models.UserData;
-import my.page.api.authentication.services.UserDataValidator;
 import my.page.api.authentication.services.UserService;
+import my.page.api.authentication.services.validation.LoginValidator;
+import my.page.api.authentication.services.validation.RegistrationValidator;
 import my.page.api.security.services.JWTService;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import static my.page.api.authentication.enumeration.UserDataValidationResult.OK;
-import static my.page.api.authentication.enumeration.UserDataValidationResult.WRONG_CREDENTIALS;
+import static my.page.api.authentication.enumeration.validation.UserDataValidationResult.OK;
+import static my.page.api.authentication.enumeration.validation.UserDataValidationResult.WRONG_CREDENTIALS;
 
 @Component
+@AllArgsConstructor
 public class AuthenticationFacade {
 
-    @Autowired
-    UserDataValidator userDataValidator;
+    private final LoginValidator loginValidator;
+    private final RegistrationValidator registrationValidator;
+    private final UserService userService;
+    private final JWTService jwtService;
 
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    JWTService jwtService;
-
-    public @NotNull ResponseEntity<String> login(@NotNull LoginUserData loginUserData) {
-        UserDataValidationResult userDataValidationResult = userDataValidator.forLogin(loginUserData);
+    public @NotNull ResponseEntity<String> login(@NotNull UserData userData) {
+        UserDataValidationResult userDataValidationResult = loginValidator.validate(userData);
         if (userDataValidationResult != OK) {
             return ResponseEntity.status(400)
                                  .body(userDataValidationResult.toString());
         }
-        User user = userService.findUserByLoginUserData(loginUserData);
+        User user = userService.findUserByUserData(userData);
         if (user == null) {
             return ResponseEntity.status(400)
                                  .body(WRONG_CREDENTIALS.toString());
@@ -44,7 +41,7 @@ public class AuthenticationFacade {
     }
 
     public @NotNull ResponseEntity<String> registration(@NotNull UserData userData) {
-        UserDataValidationResult userDataValidationResult = userDataValidator.forRegistration(userData);
+        UserDataValidationResult userDataValidationResult = registrationValidator.validate(userData);
         if (userDataValidationResult != OK) {
             return ResponseEntity.status(400)
                                  .body(userDataValidationResult.toString());

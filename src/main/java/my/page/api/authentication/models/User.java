@@ -2,16 +2,15 @@ package my.page.api.authentication.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import my.page.api.database.Schemas;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
 import java.util.UUID;
 
-import static my.page.api.database.Schemas.AUTHENTICATION;
-
 @Entity
-@Table(name = "users", schema = AUTHENTICATION)
+@Table(name = "users", schema = Schemas.AUTHENTICATION)
 @Getter
 public class User {
 

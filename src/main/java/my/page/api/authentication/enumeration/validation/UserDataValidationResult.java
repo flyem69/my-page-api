@@ -1,4 +1,4 @@
-package my.page.api.authentication.enumeration;
+package my.page.api.authentication.enumeration.validation;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
