@@ -1,4 +1,4 @@
-package my.page.api.assemblers;
+package my.page.api.helpers;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import static org.apache.commons.lang3.RandomStringUtils.random;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class UserDataAssembler {
+public final class UserDataAssembler {
 
     private String email;
     private String name;

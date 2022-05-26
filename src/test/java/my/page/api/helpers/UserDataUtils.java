@@ -1,6 +1,5 @@
-package my.page.api.authentication.services.validation;
+package my.page.api.helpers;
 
-import my.page.api.assemblers.UserDataAssembler;
 import my.page.api.authentication.enumeration.validation.UserDataValidationResult;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -8,9 +7,9 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
-class UserDataUtils {
+public abstract class UserDataUtils {
 
-    static @NotNull Stream<Arguments> userDataWithInvalidEmail() {
+    public static @NotNull Stream<Arguments> userDataWithInvalidEmail() {
         UserDataAssembler userDataAssemblerWithValidNameAndPassword = UserDataAssembler.make()
                                                                                        .withAnyName()
                                                                                        .withAnyPassword();
@@ -52,7 +51,7 @@ class UserDataUtils {
         );
     }
 
-    static @NotNull Stream<Arguments> userDataWithInvalidName() {
+    public static @NotNull Stream<Arguments> userDataWithInvalidName() {
         UserDataAssembler userDataAssemblerWithValidEmailAndPassword = UserDataAssembler.make()
                                                                                         .withAnyEmail()
                                                                                         .withAnyPassword();
@@ -76,7 +75,7 @@ class UserDataUtils {
         );
     }
 
-    static @NotNull Stream<Arguments> userDataWithInvalidPassword() {
+    public static @NotNull Stream<Arguments> userDataWithInvalidPassword() {
         UserDataAssembler userDataAssemblerWithValidEmailAndName = UserDataAssembler.make()
                                                                                     .withAnyEmail()
                                                                                     .withAnyName();

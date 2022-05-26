@@ -1,8 +1,9 @@
 package my.page.api.authentication.services.validation;
 
-import my.page.api.assemblers.UserDataAssembler;
+import my.page.api.helpers.UserDataAssembler;
 import my.page.api.authentication.enumeration.validation.UserDataValidationResult;
 import my.page.api.authentication.models.UserData;
+import my.page.api.helpers.UserDataUtils;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
